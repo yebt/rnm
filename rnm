@@ -1,0 +1,31 @@
+#!/bin/bash
+hlpmsg(){
+    echo "Usage: rnm <path> <new_name>
+    path: (string) path to file o directory to rename
+    new_name: (string) new name for file or directory"
+}
+
+# HELP
+if [[ -z "$1" || -z "$2" || "$1" == "--help" || "$1" == "-h" ]]; then
+    hlpmsg
+    exit 0
+fi
+
+# Rollback
+if [[ "$1" == "--rollback" || "$1" == "-r" ]]; then
+    
+    exit 0
+fi
+
+file_to_rename="$1"
+rlpth=$(realpath $1)
+bsdr=$(dirname $rlpth)
+
+
+if [ ! -f "$file_to_rename" ]; then
+    echo "No such file or directory '$file_to_rename '"
+    exit 1
+fi
+
+mv "$rlpth" "$bsdr/$2"
+echo "rename '$rlpth' -> '$bsdr/$2'"
