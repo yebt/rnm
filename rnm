@@ -1,8 +1,26 @@
 #!/bin/bash
+
+CACHE_FILE="$HOME/.cache/rnm_history"
+
+##
+push_history(){
+    local num_lines=0
+    if [ -f "$CACHE_FILE" ]; then
+        num_lines=$(wc -l < "$CACHE_FILE")
+    fi
+    echo "$1\n" >> "$CACHE_FILE"
+###
+
+
 hlpmsg(){
-    echo "Usage: rnm <path> <new_name>
+    echo "Usage: rnm [action]|[<path> <new_name>]
     path: (string) path to file o directory to rename
-    new_name: (string) new name for file or directory"
+    new_name: (string) new name for file or directory
+
+    actions:
+        -r, --rollback manage in the history
+    "
+
 }
 
 # HELP
@@ -29,5 +47,8 @@ if [ ! -f "$file_to_rename" ]; then
     exit 1
 fi
 
+########
 mv "$rlpth" "$bsdr/$2"
+########
 echo "rename '$rlpth' -> '$bsdr/$2'"
+push_history "$rlpth:$bsdr/$2"
