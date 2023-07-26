@@ -6,16 +6,18 @@ hlpmsg(){
 }
 
 # HELP
-if [[ -z "$1" || -z "$2" || "$1" == "--help" || "$1" == "-h" ]]; then
+if [[ -z "$1" || "$1" == "--help" || "$1" == "-h" ]]; then
     hlpmsg
     exit 0
 fi
 
 # Rollback
 if [[ "$1" == "--rollback" || "$1" == "-r" ]]; then
-    
+    echo "No implemented yet"
     exit 0
 fi
+
+#
 
 file_to_rename="$1"
 rlpth=$(realpath $1)
